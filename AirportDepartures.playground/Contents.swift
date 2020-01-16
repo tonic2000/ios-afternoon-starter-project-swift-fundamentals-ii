@@ -42,8 +42,6 @@ struct Flight {
     var destination: String
 }
 
-
-
 struct Airport {
     var name: String
     var address: String
@@ -53,17 +51,18 @@ struct Airport {
 }
 class DepartureBoard {
     
-    var flights : [Flight]
+    var flights : [Flight] = []
     var airport : Airport
     
     init(flights: [Flight],airport: Airport) {
         self.flights = flights
         self.airport = airport
     }
-    
+    func append(_ flight: Flight)  {
+        flights.append(flight)
+    }
     
 }
-
 
 //: ## 2. Create 3 flights and add them to a departure board
 //: a. For the departure time, use `Date()` for the current time
@@ -78,8 +77,6 @@ class DepartureBoard {
 let randomMonth = Int.random(in: 1...12)
 let randomDate = Int.random(in: 1...31)
 
-// DateComponents API
-//:   Date Components API
 
 // Date Components API
 
@@ -102,9 +99,6 @@ let timeString2 = formatter.string(from: arrivalTime2)
 let timeString3 = formatter.string(from: arrivalTime3)
 
 
-
-
-
 var flight1 = Flight(flightCode: code, departureTime: "\(currentDate )" , arrivalTime: timeString1 , terminal: "A"  , status: .scheduled,destination: "London" )
 
 var flight2 = Flight(flightCode: code, departureTime: "\(currentDate)", arrivalTime: timeString2 , terminal: nil, status: .enRoute,destination: "San Francisco"  )
@@ -112,14 +106,12 @@ var flight3 = Flight(flightCode: code, departureTime: nil, arrivalTime: timeStri
 
 
 
-var flights = [Flight]()
-flights.append(flight1)
-flights.append(flight2)
-flights.append(flight3)
-
-
 let currentAirport = Airport(name: "JFK", address: "1 Hacker Way", zone: .destination, numberOfGates: 350, area: 80000)
-let departureBoard = DepartureBoard(flights: flights, airport:currentAirport )
+let departureBoard = DepartureBoard(flights: [], airport: currentAirport)
+
+departureBoard.append(flight1)
+departureBoard.append(flight2)
+departureBoard.append(flight3)
 
 //: ## 3. Create a free-standing function that can print the flight information from the `DepartureBoard`
 //: a. Use the function signature: `printDepartures(departureBoard:)`
@@ -246,8 +238,8 @@ func calculateAirfare(checkedBags: Int,distance: Int, travelers: Int) -> String 
 }
 
 
-calculateAirfare(checkedBags: 2, distance: 2000, travelers: 3)
-calculateAirfare(checkedBags: 3, distance: 1000, travelers: 2)
-calculateAirfare(checkedBags: 4, distance: 3000, travelers: 5)
+calculateAirfare(checkedBags: 2, distance: 2000, travelers: 3) // $750.00
+calculateAirfare(checkedBags: 3, distance: 1000, travelers: 2) // $350.00
+calculateAirfare(checkedBags: 4, distance: 3000, travelers: 5) // $2,000.00
 
 
